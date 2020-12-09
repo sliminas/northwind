@@ -12,4 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require layout
+ *= require navigation
+ *= require product
  */
