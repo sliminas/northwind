@@ -9,9 +9,14 @@ gem "rails", "~> 6.0.3", ">= 6.0.3.4"
 
 gem "activerecord-import"
 gem "pg", ">= 0.18", "< 2.0"
+
+gem "cells-rails"
+gem "cells-slim"
+gem "slim"
+gem "trailblazer-cells"
+
 gem "puma", "~> 4.1"
 gem "sass-rails", ">= 6"
-gem "slim"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 4.0"
 
