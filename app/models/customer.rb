@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Customer < ApplicationRecord
-  has_and_belongs_to_many :demographics, class_name: "Customer::Demographic"
-  has_many :orders
+  has_many :orders, dependent: :destroy
+
+  has_one :address, as: :addressable, dependent: :destroy
 end
