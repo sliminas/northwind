@@ -4,14 +4,16 @@ class Seeds
   class << self
     include FactoryBot::Syntax::Methods
 
-    def create_data
-      create_suppliers
-      create_shippers
-      create_categories
-      create_products
-      create_customers
-      create_employees
-      create_orders
+    def create_development_data(count = nil)
+      create_suppliers(count || 1000)
+      create_shippers(count || 100)
+      create_categories(count || 100)
+
+      create_customers(count || 1000)
+      create_employees(count || 1000)
+
+      create_products(count || 10_000)
+      create_orders(count || 1000)
     end
 
     def create_suppliers(count = 1000)
@@ -49,12 +51,13 @@ class Seeds
     end
 
     def create_orders(count = 1000)
-      products  = Product.pluck :id
-      customers = Customer.pluck :id
-      employees = Employee.pluck :id
+      products  = Product.all.pluck(:id)
+      customers = Customer.all.pluck(:id)
+      employees = Employee.all.pluck(:id)
+      shippers  = Shipper.all.pluck(:id)
 
       orders = Array.new(count) do
-        order = build :order, customer_id: customers.sample, employee_id: employees.sample
+        order = build :order, customer_id: customers.sample, employee_id: employees.sample, shipper_id: shippers.sample
 
         order.items = products.sample(rand(1..10)).map do |product_id|
           build :order_item, order: order, product_id: product_id
@@ -67,8 +70,8 @@ class Seeds
     end
 
     def create_products(count = 10_000)
-      suppliers  = Supplier.pluck :id
-      categories = Category.pluck :id
+      suppliers  = Supplier.all.pluck(:id)
+      categories = Category.all.pluck(:id)
 
       products = Array.new(count) do
         attributes_for :product,
@@ -80,7 +83,7 @@ class Seeds
     end
 
     def create_addresses(ids, addressable_type)
-      addresses = ids.each do |id|
+      addresses = ids.map do |id|
         attributes_for(:address).merge(addressable_type: addressable_type, addressable_id: id)
       end
 

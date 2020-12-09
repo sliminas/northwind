@@ -383,6 +383,9 @@ Security/Eval:
 RSpec/PredicateMatcher:
   Enabled: false
 
+RSpec/ExampleLength:
+  Enabled: false
+
 RSpec/MessageChain:
   Enabled: false
 
