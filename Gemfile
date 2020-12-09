@@ -7,6 +7,7 @@ ruby "2.7.2"
 
 gem "rails", "~> 6.0.3", ">= 6.0.3.4"
 
+gem "activerecord-import"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 4.1"
 gem "sass-rails", ">= 6"
@@ -18,9 +19,10 @@ gem "jbuilder", "~> 2.7"
 
 group :development, :test do
   gem "awesome_print"
-  gem "factory_bot"
+  gem "factory_bot_rails"
   gem "faker"
   gem "pry-byebug"
+  gem "rspec-rails"
 end
 
 group :development do
