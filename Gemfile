@@ -12,6 +12,7 @@ gem "pg", ">= 0.18", "< 2.0"
 
 gem "cells-rails"
 gem "cells-slim"
+gem "pagy"
 gem "slim"
 gem "trailblazer-cells"
 

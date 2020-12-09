@@ -2,8 +2,18 @@
 
 module Product::Cell
   class Index < Northwind::Cell::Base
+    include Pagy::Frontend
+
     def products
-      Product.limit 100
+      options[:products]
+    end
+
+    def pagy
+      options[:pagy]
+    end
+
+    def pagination
+      pagy_nav pagy
     end
   end
 end
