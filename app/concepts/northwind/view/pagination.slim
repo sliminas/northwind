@@ -1,0 +1,26 @@
+/ This template is i18n-ready: if you don't use i18n, then you can replace the pagy_t
+/ calls with the actual strings ("&lsaquo; Prev", "Next &rsaquo;", "&hellip;").
+/ The link variable is set to a proc that returns the link tag.
+/ Usage: link.call( page_number [, text [, extra_attributes_string ]])
+- link = pagy_link_proc(pagy)
+
+nav.pagy-nav.pagination role="navigation" aria-label="pager"
+  - if pagy.prev
+    ==> link.call(pagy.prev, tag.span(pagy_t('pagy.nav.prev').html_safe), 'aria-label="previous" class="page prev"')
+  - else
+    span.page.prev.disabled.bg-gray-100 ==> pagy_t('pagy.nav.prev')
+
+  - pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]
+    - if item.is_a?(Integer) # page link
+      ==> link.call(item, tag.span(item), 'class="page"')
+
+    - elsif item.is_a?(String) # current page
+      span.page.current.bg-yellow-200 ==> item
+
+    - elsif item == :gap # page gap
+      span.page.gap ==> pagy_t('pagy.nav.gap')
+
+  - if pagy.next
+    == link.call(pagy.next, tag.span(pagy_t('pagy.nav.next').html_safe), 'aria-label="next" class="page next"')
+  - else
+    span.page.next.disabled.bg-gray-100 == pagy_t('pagy.nav.next')

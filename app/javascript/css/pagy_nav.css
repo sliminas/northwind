@@ -1,0 +1,24 @@
+.pagy-nav {
+  @apply inline-flex shadow-md;
+}
+.pagy-nav.pagination {
+  @apply border border-gray-600 rounded-sm;
+}
+.pagy-nav .page {
+  @apply text-gray-700 border-r border-gray-600 px-3 py-2 text-sm leading-tight font-medium;
+}
+.pagy-nav .page:hover {
+  @apply text-gray-900;
+}
+.pagy-nav .disabled {
+  @apply cursor-not-allowed;
+}
+.pagy-nav .active {
+  @apply text-blue-500;
+}
+.pagy-nav .prev {
+  @apply text-gray-900;
+}
+.pagy-nav .next {
+  @apply text-gray-900 border-r border-transparent;
+}

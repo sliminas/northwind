@@ -8,11 +8,12 @@ html
 
     meta name="viewport" content="width=device-width, initial-scale=1.0"
 
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "application", 'data-turbolinks-track': "reload", media: "all"
     = stylesheet_pack_tag "application", "data-turbolinks-track": "reload"
+
     = javascript_pack_tag "application", "data-turbolinks-track": "reload"
 
   body
-    .page-container
-      = cell Northwind::Cell::Navigation
+    .container.p-4
+      = concept Northwind::Cell::Navigation
       = yield

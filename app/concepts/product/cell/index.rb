@@ -2,7 +2,6 @@
 
 module Product::Cell
   class Index < Northwind::Cell::Base
-    include Pagy::Frontend
 
     def products
       options[:products]
@@ -13,7 +12,7 @@ module Product::Cell
     end
 
     def pagination
-      pagy_nav pagy
+      cell Northwind::Cell::Pagination, pagy
     end
   end
 end
