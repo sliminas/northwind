@@ -8,13 +8,16 @@
   @apply text-gray-700 border-r border-gray-600 px-3 py-2 text-sm leading-tight font-medium;
 }
 .pagy-nav .page:hover {
-  @apply text-gray-900;
+  @apply text-gray-900 bg-gray-200;
 }
 .pagy-nav .disabled {
-  @apply cursor-not-allowed;
+  @apply cursor-not-allowed bg-gray-100;
 }
 .pagy-nav .active {
   @apply text-blue-500;
+}
+.pagy-nav .current {
+  @apply bg-yellow-200;
 }
 .pagy-nav .prev {
   @apply text-gray-900;

@@ -1,3 +1,13 @@
-nav.pv-2
-  ul
-    li = link_to "Northwind", root_path
+nav.p-2.bg-yellow-200
+  ul.flex
+    a href=root_path
+      li.p-2 class="hover:bg-yellow-400" Northwind
+    li.px-2 data-controller="product-search"
+      input#product-search.p-2.rounded-lg.w-full.max-w-md {
+        placeholder="Search..."
+        class="focus:outline-none border border-solid focus:border-yellow-400"
+        data-action="product-search#search"
+        data-product-search-target="search" }
+      div#search-result.absolute.p-2.border-solid.border-2.border-yellow-400.bg-white.hidden {
+        data-product-search-target="result"
+        class=""}
