@@ -9,6 +9,34 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
+-- Name: products_ts_vector_trigger(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.products_ts_vector_trigger() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+begin
+  new.text_search_vector := setweight(to_tsvector('pg_catalog.english', coalesce(new.name, '')), 'A');
+  return new;
+end
+$$;
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -249,7 +277,8 @@ CREATE TABLE public.products (
     unit character varying,
     stock integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    text_search_vector tsvector
 );
 
 
@@ -552,6 +581,27 @@ CREATE INDEX index_products_on_supplier_id ON public.products USING btree (suppl
 
 
 --
+-- Name: index_products_on_text_search_vector; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_text_search_vector ON public.products USING gin (text_search_vector);
+
+
+--
+-- Name: products_text_search_vector; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_text_search_vector ON public.products USING gin (setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::"char"));
+
+
+--
+-- Name: products tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.products FOR EACH ROW EXECUTE FUNCTION public.products_ts_vector_trigger();
+
+
+--
 -- Name: products fk_rails_1aa9b0116b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -622,6 +672,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201209102753'),
 ('20201209102755'),
 ('20201209124144'),
-('20201209124145');
+('20201209124145'),
+('20201217192151');
 
 

@@ -5,23 +5,19 @@ require:
   - rubocop-thread_safety
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   DisplayStyleGuide: true
   Exclude:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
     - 'db/migrate/**/*'
-    - 'benchmarks/**/*'
     - 'node_modules/**/*'
-    - 'config/deploy.rb'
 
 ThreadSafety/InstanceVariableInClassMethod:
   Exclude:
-    - 'app/concerns/active_admin_concerns/**/*'
     - 'spec/**/*'
     - 'features/**/*'
-    - 'lib/smacss_resolver.rb'
 
 ThreadSafety/NewThread:
   Exclude:
@@ -245,7 +241,6 @@ Style/ModuleFunction:
 Layout/LineLength:
   Max: 118
   Exclude:
-    - 'features/step_definitions/**/*'
     - 'Gemfile'
 
 Metrics/ModuleLength:
@@ -255,19 +250,9 @@ Metrics/BlockLength:
   Exclude:
     - 'config/**/*'
     - 'spec/**/*'
-    - 'features/step_definitions/**/*'
-    - 'lib/tasks/**/*.rake'
-    - 'app/admin/**/*'
-    - 'app/concerns/active_admin_concerns/**/*'
-    - 'app/dispatcher/**/*'
-    - 'app/parcel_hub_admin/**/*'
     - 'app/views/**/*.arb'
     - 'Guardfile'
-    - 'lib/production_irb_helpers.rb'
   ExcludedMethods:
-    - as_trait
-    - power
-    - aasm
     - swagger_api
 
 Metrics/ParameterLists:
@@ -327,7 +312,6 @@ Naming/FileName:
   Exclude:
     - 'Capfile'
     - 'Gemfile'
-    - 'Guardfile'
     - 'Rakefile'
 
 Naming/HeredocDelimiterNaming:
@@ -375,11 +359,6 @@ Performance/StringInclude:
 Performance/Sum:
   Enabled: true
 
-Security/Eval:
-  Exclude:
-    - 'bin/benchmark'
-    - 'bin/profile'
-
 RSpec/PredicateMatcher:
   Enabled: false
 
@@ -403,14 +382,7 @@ RSpec/MultipleMemoizedHelpers:
 
 RSpec/DescribeClass:
   Exclude:
-    - 'spec/api_templates/**/*'
     - 'spec/features/**/*'
-    - 'spec/config/translations_spec.rb'
-    - 'spec/config/capistrano_version_lock_spec.rb'
-    - 'spec/models/seeds_spec.rb'
-    - 'spec/requests/quick_quote_spec.rb'
-    - 'spec/units/aasm_pessimistic_locking_spec.rb'
-    - 'spec/units/active_admin_caching_spec.rb'
 
 FactoryBot/CreateList:
   Enabled: false
@@ -521,9 +493,3 @@ Lint/RedundantSafeNavigation:
 
 Style/ClassEqualityComparison:
   Enabled: true
-
-# This rule is hard to add to the current style of writing tests,
-# so we diable it for now
-# https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/StubbedMock
-RSpec/StubbedMock:
-  Enabled: false

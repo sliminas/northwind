@@ -9,6 +9,9 @@ gem "rails", "~> 6.1"
 
 gem "activerecord-import"
 gem "pg", ">= 0.18", "< 2.0"
+gem "pg_search"
+
+gem "responders"
 
 gem "cells-rails"
 gem "cells-slim"
