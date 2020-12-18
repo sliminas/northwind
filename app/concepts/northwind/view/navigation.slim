@@ -2,14 +2,23 @@ nav.p-2.bg-yellow-200
   ul.flex
     a href=root_path
       li.p-2 class="hover:bg-yellow-400" Northwind
-    li.px-2 data-controller="product-search"
-      input#product-search.p-2.rounded-lg.w-full.max-w-md {
+    li.px-2 {
+      data-controller="search"
+      data-search-url-value=api_products_url
+      data-search-product-url-value= products_url }
+
+      input#search.p-2.rounded-lg.w-full.max-w-md {
         placeholder="Search..."
         class="focus:outline-none border border-solid focus:border-yellow-400"
-        data-action="input->product-search#search focusout->product-search#hideResultList focus->product-search#showResultList"
-        data-product-search-target="search"
-        data-url=api_products_url
-        data-product-url=products_url }
-      #search-result.search-result.absolute.p-2.border-solid.border-2.border-yellow-400.bg-white.hidden {
-        data-product-search-target="result"
-        class=""}
+        data-action="input->search#update focus->search#showResultList"
+        data-search-target="search" }
+
+      #clear-search.hidden.relative.rounded-full.border.border-solid.border-black.ml-56.-mt-9.w-7.h-7.cursor-pointer.text-center.select-none {
+        class="hover:bg-yellow-200"
+        data-search-target="clear"
+        data-action="click->search#clearSearch"
+      }
+        |x
+      #search-result.absolute.p-2.mt-2.border-solid.border-2.border-yellow-400.bg-white.hidden {
+        data-search-target="result"
+        data-search-action="mouseleave->search#hideResultList" }

@@ -2,8 +2,8 @@
 
 class Api::ProductsController < Api::BaseController
   def index
-    _pagination, products = pagy Product.search_by_name(params[:search]), items: 10
+    products = Product.search_by_name(params[:search]).with_pg_search_highlight.limit(10)
 
-    render json: products
+    render json: products.map { |product| { name: product.pg_search_highlight, id: product.id } }
   end
 end
