@@ -574,6 +574,13 @@ CREATE INDEX index_products_on_category_id ON public.products USING btree (categ
 
 
 --
+-- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_name ON public.products USING gin (COALESCE((name)::text, ''::text) public.gin_trgm_ops);
+
+
+--
 -- Name: index_products_on_supplier_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -673,6 +680,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201209102755'),
 ('20201209124144'),
 ('20201209124145'),
-('20201217192151');
+('20201217192151'),
+('20201222152901');
 
 

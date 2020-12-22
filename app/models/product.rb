@@ -12,6 +12,7 @@ class Product < ApplicationRecord
                     tsearch: {
                       prefix:          true,
                       any_word:        true,
+                      dictionary:      "english",
                       tsvector_column: :text_search_vector,
                       highlight:       {
                         StartSel:          "<b>",
@@ -19,6 +20,7 @@ class Product < ApplicationRecord
                         MaxFragments:      3,
                         FragmentDelimiter: "&hellip;"
                       }
-                    }
+                    },
+                    trigram: {}
                   }
 end

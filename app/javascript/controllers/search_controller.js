@@ -22,7 +22,7 @@ export default class extends Controller {
       const products = await fetch(`${this.urlValue}?search=${search}`).then(response => response.json())
 
       this.hideResultList(products.length === 0)
-      this.resultTarget.innerHTML = this.resultList(products).outerHTML
+      this.resultTarget.innerHTML = this.resultList(products)
     }, 250);
   }
 
@@ -35,7 +35,7 @@ export default class extends Controller {
   hideResultList = (show = true) => this.resultTarget.classList.toggle("hidden", show)
 
   showResultList = () => {
-    if (this.searchTarget.value.length === 0) return
+    if (this.searchTarget.value.length === 0 || this.resultTarget.innerHTML === '') return
     this.hideResultList(false)
   }
 
@@ -45,6 +45,8 @@ export default class extends Controller {
   }
 
   resultList(products) {
+    if (products.length === 0) return ''
+
     const list = document.createElement("ul")
 
     products.forEach((product) => {
@@ -52,6 +54,6 @@ export default class extends Controller {
       const link = this.resultItemTemplate.replace("%link_url%", href).replace("%text%", product.name)
       list.innerHTML += link
     })
-    return list
+    return list.outerHTML
   }
 }

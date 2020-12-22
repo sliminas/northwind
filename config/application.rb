@@ -27,5 +27,6 @@ module Northwind
     # the framework and any gems in your application.
 
     config.active_record.schema_format = :sql
+    config.webpacker.check_yarn_integrity = false
   end
 end
