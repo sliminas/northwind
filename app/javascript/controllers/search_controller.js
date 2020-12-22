@@ -11,14 +11,14 @@ export default class extends Controller {
 
   update() {
     const search = this.searchTarget.value
-    this.clearTarget.classList.remove("hidden")
+    if (search.length === 0) return this.clearSearch()
+    if (search.length <= 2) return this.clearResultList()
 
-    if (search.length <= 2) { return this.clearResultList() }
+    this.clearTarget.classList.remove("hidden")
 
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(async () => {
-
       const products = await fetch(`${this.urlValue}?search=${search}`).then(response => response.json())
 
       this.hideResultList(products.length === 0)
